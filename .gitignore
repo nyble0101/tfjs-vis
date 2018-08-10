@@ -10,3 +10,4 @@ dist/
 yalc.lock
 .rpt2_cache/
 package/
+.cache

@@ -1,3 +1,5 @@
+// Via https://github.com/airbnb/enzyme/blob/master/docs/guides/jsdom.md
+
 import {JSDOM} from 'jsdom';
 
 // Set up jsdom for UI tests
