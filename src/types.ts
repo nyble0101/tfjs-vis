@@ -23,6 +23,7 @@
 export interface VisorInstance {
   el: HTMLElement;
   surface: (options: SurfaceInfo) => SurfaceInstance;
+  isFullscreen: () => boolean;
   isOpen: () => boolean;
   open: () => void;
   close: () => void;

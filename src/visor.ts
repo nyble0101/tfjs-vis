@@ -98,6 +98,7 @@ export function visor(): VisorInstance {
       renderVisor(visorEl, surfaceList);
       return visorComponentInstance.getSurface(name, _tab);
     },
+    isFullscreen: () => visorComponentInstance.isFullscreen(),
     isOpen: () => visorComponentInstance.isOpen(),
     close: () => visorComponentInstance.close(),
     open: () => visorComponentInstance.open(),

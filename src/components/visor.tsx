@@ -51,7 +51,7 @@ interface VisorProps {
 
 interface VisorState {
   isOpen: boolean;
-  isFullScreen: boolean;
+  isFullscreen: boolean;
   activeTab: string | null;
   tabs: Set<string>;
 }
@@ -93,7 +93,7 @@ export class VisorComponent extends Component<VisorProps, VisorState> {
 
     this.state = {
       isOpen: startOpen,
-      isFullScreen: false,
+      isFullscreen: false,
       activeTab: null,
       tabs: new Set<string>()
     };
@@ -114,11 +114,15 @@ export class VisorComponent extends Component<VisorProps, VisorState> {
   }
 
   toggleFullScreen() {
-    this.setState({ isFullScreen: !this.state.isFullScreen });
+    this.setState({ isFullscreen: !this.state.isFullscreen });
   }
 
   isOpen(): boolean {
     return this.state.isOpen;
+  }
+
+  isFullscreen(): boolean {
+    return this.state.isFullscreen;
   }
 
   getSurface(label: string, tab: string) {
@@ -207,11 +211,11 @@ export class VisorComponent extends Component<VisorProps, VisorState> {
   }
 
   render() {
-    const { isOpen, isFullScreen, activeTab } = this.state;
+    const { isOpen, isFullscreen, activeTab } = this.state;
     const { surfaceList } = this.props;
     const tabNames = Array.from(this.getTabs().values());
 
-    const width = isFullScreen ? '90vw' : '500px';
+    const width = isFullscreen ? '90vw' : '500px';
 
     const defaultStyles = css({
       width,
@@ -241,13 +245,13 @@ export class VisorComponent extends Component<VisorProps, VisorState> {
       <div
         className={`${defaultStyles} ${position} visor`}
         data-isopen={isOpen}
-        data-isfullscreen={isFullScreen}
+        data-isfullscreen={isFullscreen}
       >
         {/* Controls  */}
         <VisorControls
           fullScreenHandler={this.toggleFullScreen.bind(this)}
           closeHandler={this.close.bind(this)}
-          isFullScreen={isFullScreen}
+          isFullScreen={isFullscreen}
         />
         {/* Tabs */}
         <Tabs

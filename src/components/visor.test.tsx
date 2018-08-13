@@ -35,7 +35,7 @@ describe('Visor Component', () => {
     expect(wrapper.find('.visor-surfaces')).toHaveLength(1);
     expect(wrapper.find('.tf-surface')).toHaveLength(0);
     expect(wrapper.state().isOpen).toBe(true);
-    expect(wrapper.state().isFullScreen).toBe(false);
+    expect(wrapper.state().isFullscreen).toBe(false);
   });
 
   it('renders an empty and closed visor', () => {
@@ -48,7 +48,7 @@ describe('Visor Component', () => {
 
     expect(wrapper.find('.visor')).toHaveLength(1);
     expect(wrapper.state().isOpen).toBe(false);
-    expect(wrapper.state().isFullScreen).toBe(false);
+    expect(wrapper.state().isFullscreen).toBe(false);
   });
 
   it('renders a surface', () => {
@@ -133,14 +133,14 @@ describe('Visor Component', () => {
     let toggleButton;
     toggleButton = wrapper.find('.visor-controls').children().at(0);
     expect(toggleButton.text()).toEqual('Maximise');
-    expect(wrapper.state().isFullScreen).toEqual(false);
+    expect(wrapper.state().isFullscreen).toEqual(false);
     expect(wrapper.find('.visor').at(0).attr('data-isfullscreen' as never))
       .toEqual(false);
 
     toggleButton.simulate('click');
     toggleButton = wrapper.find('.visor-controls').children().at(0);
     expect(toggleButton.text()).toEqual('Minimize');
-    expect(wrapper.state().isFullScreen).toEqual(true);
+    expect(wrapper.state().isFullscreen).toEqual(true);
     expect(wrapper.find('.visor').at(0).attr('data-isfullscreen' as never))
       .toEqual(true);
   });
