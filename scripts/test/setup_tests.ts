@@ -4,7 +4,8 @@ import {JSDOM} from 'jsdom';
 
 // Set up jsdom for UI tests
 const jsdom = new JSDOM(
-    '<!doctype html><html><body><div id="container"></div></body></html>');
+    '<!doctype html><html><body><div id="container"></div></body></html>',
+    {pretendToBeVisual: true});
 const {window} = jsdom;
 
 function copyProps(src, target) {

@@ -72,3 +72,21 @@ export interface CSSOptions {
   maxWidth: string;
   maxHeight: string;
 }
+
+/**
+ * Common visualisation options for '.render' functions.
+ */
+export type VisOptions = Partial<VisOpts>;
+interface VisOpts {
+  width: number;
+  height: number;
+  xLabel: string;
+  yLabel: string;
+  xType: 'quantitative'|'ordinal'|'nominal';
+  yType: 'quantitative'|'ordinal'|'nominal';
+}
+
+export type Drawable = HTMLElement|SurfaceInstance|{
+  drawArea: HTMLElement;
+  [others: string]: {}|null|undefined;
+};

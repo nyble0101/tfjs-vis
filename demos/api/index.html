@@ -18,6 +18,25 @@
 
 <head>
   <meta charset="utf-8">
+  <script src="../../dist/tfjs-vis.umd.js"></script>
+  <!-- <script src="./index.js"></script> -->
+
+  <style>
+    article {
+      max-width: 960px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    }
+
+    script.show-script {
+      display: block;
+      max-width: 720px;
+      background-color: floralwhite;
+      font-family: "Lucida Console", Monaco, "Courier New", Courier, monospace;
+      font-size: 12px;
+      margin-left: -20px;
+      white-space: pre;
+    }
+  </style>
 </head>
 
 <body>
@@ -30,8 +49,65 @@
         It is designed in a way to work along side regular web apps. This page is a testbed for the api.
       </p>
     </section>
+
+    <section>
+      <h2>Render Functions</h2>
+
+      <h3>render.barchart(data, container, options)</h3>
+      <div id='barchart-cont'></div>
+      <script class='show-script'>
+        const data = [
+          { index: 0, value: 50 },
+          { index: 1, value: 100 },
+          { index: 2, value: 150 },
+        ];
+
+        // Render to visor
+        const surface = tfvis.visor().surface({ name: 'Barchart', tab: 'Charts' });
+        tfvis.render.barchart(data, surface, {});
+
+        // Render to page
+        const container = document.getElementById('barchart-cont');
+        tfvis.render.barchart(data, container, {
+          xLabel: 'my x axis',
+          yLabel: 'values',
+          width: 500,
+          height: 250,
+        });
+      </script>
+
+      <p>Re-rendering</p>
+
+      <div id='barchart-bench'></div>
+      <script class='show-script'>
+        const genData = function () {
+          return [
+            { index: 0, value: (Math.random() * 50) + 10 },
+            { index: 1, value: (Math.random() * 50) + 50 },
+            { index: 2, value: (Math.random() * 50) + 100 },
+          ];
+        };
+
+        async function timeStuff(numrenders) {
+          console.time(`renderBarchart:${numrenders}`)
+          for (let i = 0; i < numrenders; i++) {
+            await tfvis.render.barchart(genData(), document.getElementById('barchart-bench'), {
+              xLabel: 'my x axis',
+              yLabel: 'values',
+              width: 500,
+              height: 250,
+            });
+          }
+          console.timeEnd(`renderBarchart:${numrenders}`)
+        }
+
+        const numrenders = 500;
+        timeStuff(numrenders);
+      </script>
+    </section>
+
   </article>
-  <script src="./index.js"></script>
+
 </body>
 
 </html>

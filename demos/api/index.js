@@ -15,17 +15,41 @@
  * =============================================================================
  */
 
-import {visor} from '../../dist/index';
+import {render, visor} from '../../dist/index';
 
 let visorInstance;
 
 function start() {
+  console.log('Start');
   visorInstance = visor();
   visorInstance.surface({name: 'Surface 1'});
   visorInstance.surface({name: 'Surface 2'});
 
   visorInstance.surface({name: 'Surface 3', tab: 'Tab 2'});
-  visorInstance.surface({name: 'Surface 4', tab: 'Tab 3'});
+
+  visorInstance.surface({name: 'Barchart', tab: 'Charts'});
+
+
+  console.log('render', render);
+  barChartTest();
 }
 
-start();
+function barChartTest() {
+  const surface = visorInstance.surface({name: 'Barchart', tab: 'Charts'});
+  const data = [
+    {index: 0, value: 50},
+    {index: 1, value: 100},
+    {index: 2, value: 230},
+  ];
+
+  const opts = {
+    xLabel: 'x axis',
+    yLabel: '',
+  };
+  render.barchart(data, surface, opts);
+}
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  // start();
+});

@@ -15,11 +15,23 @@
  * =============================================================================
  */
 
-import {renderBarchart} from './render/barchart';
-import {visor} from './visor';
+import {renderBarchart} from './barchart';
 
-const render = {
-  barchart: renderBarchart
-};
+afterEach(() => {
+  document.body.innerHTML = '';
+});
 
-export {visor, render};
+describe('Visor Singleton', () => {
+  it('renders a bar chart', async () => {
+    const data = [
+      {index: 0, value: 50},
+      {index: 1, value: 100},
+      {index: 2, value: 230},
+    ];
+
+    const container = document.getElementById('container') as HTMLElement;
+    await renderBarchart(data, container);
+
+    expect(document.querySelectorAll('.vega-embed')).toHaveLength(1);
+  });
+});
