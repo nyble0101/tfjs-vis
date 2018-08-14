@@ -15,7 +15,7 @@
  * =============================================================================
  */
 
-import {View} from 'vega';
+// import {View} from 'vega';
 import embed, {Mode, Result as EmbedRes, VisualizationSpec} from 'vega-embed';
 import {Drawable, VisOptions} from '../types';
 import {getDrawArea} from './render_utils';
@@ -50,10 +50,10 @@ export function renderBarchart(
   const drawArea = getDrawArea(container);
   const values = data;
 
-  if (instances.has(drawArea)) {
-    const view = instances.get(drawArea) as View;
-    // view.update(values);
-  }
+  // if (instances.has(drawArea)) {
+  // const view = instances.get(drawArea) as View;
+  // view.update(values);
+  // }
 
   const options = Object.assign({}, defaultOpts, opts);
 

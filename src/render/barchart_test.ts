@@ -17,8 +17,8 @@
 
 import {renderBarchart} from './barchart';
 
-afterEach(() => {
-  document.body.innerHTML = '';
+beforeEach(() => {
+  document.body.innerHTML = '<div id="container"></div>';
 });
 
 describe('Visor Singleton', () => {
@@ -32,6 +32,6 @@ describe('Visor Singleton', () => {
     const container = document.getElementById('container') as HTMLElement;
     await renderBarchart(data, container);
 
-    expect(document.querySelectorAll('.vega-embed')).toHaveLength(1);
+    expect(document.querySelectorAll('.vega-embed').length).toBe(1);
   });
 });

@@ -26,7 +26,7 @@ afterEach(() => {
 describe('Visor Singleton', () => {
   it('renders an empty visor', () => {
     visor();
-    expect(document.querySelectorAll('.visor')).toHaveLength(1);
+    expect(document.querySelectorAll('.visor').length).toBe(1);
   });
 
   it('visor.el is an HTMLElement', () => {
@@ -38,7 +38,7 @@ describe('Visor Singleton', () => {
     const v1 = visor();
     const v2 = visor();
     const v3 = visor();
-    expect(document.querySelectorAll('.visor')).toHaveLength(1);
+    expect(document.querySelectorAll('.visor').length).toBe(1);
     expect(v1).toEqual(v2);
     expect(v1).toEqual(v3);
   });
@@ -46,11 +46,11 @@ describe('Visor Singleton', () => {
   it('adds a surface', () => {
     const visorInstance = visor();
     visorInstance.surface({name: 'surface 1', tab: 'tab 1'});
-    expect(document.querySelectorAll('.tf-surface')).toHaveLength(1);
+    expect(document.querySelectorAll('.tf-surface').length).toBe(1);
     expect(document.querySelector('.tf-surface')!.textContent)
         .toEqual('surface 1');
 
-    expect(document.querySelectorAll('.tf-tab')).toHaveLength(1);
+    expect(document.querySelectorAll('.tf-tab').length).toBe(1);
     expect(document.querySelector('.tf-tab')!.textContent).toEqual('tab 1');
   });
 
@@ -76,12 +76,12 @@ describe('Visor Singleton', () => {
   it('retrieves a surface', () => {
     const visorInstance = visor();
     const s1 = visorInstance.surface({name: 'surface 1', tab: 'tab 1'});
-    expect(document.querySelectorAll('.tf-surface')).toHaveLength(1);
+    expect(document.querySelectorAll('.tf-surface').length).toBe(1);
     expect(document.querySelector('.tf-surface')!.textContent)
         .toEqual('surface 1');
 
     const s2 = visorInstance.surface({name: 'surface 1', tab: 'tab 1'});
-    expect(document.querySelectorAll('.tf-surface')).toHaveLength(1);
+    expect(document.querySelectorAll('.tf-surface').length).toBe(1);
     expect(document.querySelector('.tf-surface')!.textContent)
         .toEqual('surface 1');
 
@@ -92,7 +92,7 @@ describe('Visor Singleton', () => {
     const visorInstance = visor();
     visorInstance.surface({name: 'surface1'});
 
-    expect(document.querySelectorAll('.tf-tab')).toHaveLength(1);
+    expect(document.querySelectorAll('.tf-tab').length).toBe(1);
     expect(document.querySelector('.tf-tab')!.textContent).toEqual('Visor');
   });
 
@@ -104,8 +104,8 @@ describe('Visor Singleton', () => {
     expect(s1).not.toEqual(s2);
 
     const surfaces = document.querySelectorAll('.tf-surface');
-    expect(surfaces).toHaveLength(2);
-    expect(document.querySelectorAll('.tf-tab')).toHaveLength(1);
+    expect(surfaces.length).toBe(2);
+    expect(document.querySelectorAll('.tf-tab').length).toBe(1);
 
     expect(surfaces[0].textContent).toEqual('surface 1');
     expect(surfaces[1].textContent).toEqual('surface 2');
