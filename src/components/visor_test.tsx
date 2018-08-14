@@ -31,9 +31,9 @@ describe('Visor Component', () => {
       <VisorComponent surfaceList={[]} />
     );
 
-    expect(wrapper.find('.visor')).toHaveLength(1);
-    expect(wrapper.find('.visor-surfaces')).toHaveLength(1);
-    expect(wrapper.find('.tf-surface')).toHaveLength(0);
+    expect(wrapper.find('.visor').length).toBe(1);
+    expect(wrapper.find('.visor-surfaces').length).toBe(1);
+    expect(wrapper.find('.tf-surface').length).toBe(0);
     expect(wrapper.state().isOpen).toBe(true);
     expect(wrapper.state().isFullscreen).toBe(false);
   });
@@ -46,7 +46,7 @@ describe('Visor Component', () => {
       />
     );
 
-    expect(wrapper.find('.visor')).toHaveLength(1);
+    expect(wrapper.find('.visor').length).toBe(1);
     expect(wrapper.state().isOpen).toBe(false);
     expect(wrapper.state().isFullscreen).toBe(false);
   });
@@ -60,9 +60,9 @@ describe('Visor Component', () => {
       <VisorComponent surfaceList={surfaceList} />
     );
 
-    expect(wrapper.find('.tf-surface')).toHaveLength(1);
+    expect(wrapper.find('.tf-surface').length).toBe(1);
     expect(wrapper.find('.tf-surface').text()).toMatch('surface 1');
-    expect(wrapper.find('.tf-tab')).toHaveLength(1);
+    expect(wrapper.find('.tf-tab').length).toBe(1);
     expect(wrapper.find('.tf-tab').text()).toMatch('tab 1');
   });
 
@@ -76,7 +76,7 @@ describe('Visor Component', () => {
       <VisorComponent surfaceList={surfaceList} />
     );
 
-    expect(wrapper.find('.tf-tab')).toHaveLength(2);
+    expect(wrapper.find('.tf-tab').length).toBe(2);
     expect(wrapper.state().activeTab).toEqual('tab 2');
 
     // Clicks
