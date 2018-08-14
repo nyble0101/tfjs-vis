@@ -9,3 +9,23 @@ export function getDrawArea(drawable: Drawable): HTMLElement {
     throw new Error('Not a drawable');
   }
 }
+
+export function shallowEquals(
+    // tslint:disable-next-line:no-any
+    a: {[key: string]: any}, b: {[key: string]: any}) {
+  const aProps = Object.getOwnPropertyNames(a);
+  const bProps = Object.getOwnPropertyNames(b);
+
+  if (aProps.length !== bProps.length) {
+    return false;
+  }
+
+  for (let i = 0; i < aProps.length; i++) {
+    const prop = aProps[i];
+    if (a[prop] !== b[prop]) {
+      return false;
+    }
+  }
+
+  return true;
+}

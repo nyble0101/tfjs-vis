@@ -15,10 +15,11 @@
  * =============================================================================
  */
 
-// import {View} from 'vega';
 import embed, {Mode, Result as EmbedRes, VisualizationSpec} from 'vega-embed';
+
 import {Drawable, VisOptions} from '../types';
-import {getDrawArea} from './render_utils';
+
+import {getDrawArea, shallowEquals} from './render_utils';
 
 interface Datum {
   index: number;
@@ -32,7 +33,17 @@ const defaultOpts = {
   yType: 'quantitative',
 };
 
-// const instances: Map<HTMLElement, View> = new Map<HTMLElement, View>();
+interface InstanceInfo {
+  // Note the type of view is not exported by vega-embed. We could import it
+  // from vega but that would add a direct dependency to vega.
+
+  // tslint:disable-next-line:no-any
+  view: any;
+  lastOptions: VisOptions;
+}
+
+const instances: Map<HTMLElement, InstanceInfo> =
+    new Map<HTMLElement, InstanceInfo>();
 
 /**
  * Renders a barchart
@@ -44,18 +55,33 @@ const defaultOpts = {
  * @param opts.height — height of chart in px
  * @param opts.xLabel — label for x-axis, set to null to hide the
  * @param opts.yLabel — label for y-axis, set to null to hide the
+ *
+ * @returns Promise - indicates completion of rendering
  */
 export function renderBarchart(
-    data: Datum[], container: Drawable, opts: VisOptions = {}) {
+    data: Datum[], container: Drawable, opts: VisOptions = {}): Promise<void> {
   const drawArea = getDrawArea(container);
   const values = data;
-
-  // if (instances.has(drawArea)) {
-  // const view = instances.get(drawArea) as View;
-  // view.update(values);
-  // }
-
   const options = Object.assign({}, defaultOpts, opts);
+
+  // If we have rendered this chart before with the same options we can do a
+  // data only update, else  we do a regular re-render.
+  if (instances.has(drawArea)) {
+    const instanceInfo = instances.get(drawArea)!;
+    if (shallowEquals(options, instanceInfo.lastOptions)) {
+      return new Promise((resolve, reject) => {
+        new Promise(r => requestAnimationFrame(r))
+            .then(() => {
+              const view = instanceInfo.view;
+              const changes =
+                  view.changeset().remove(() => true).insert(values);
+              return view.change('values', changes).runAsync();
+            })
+            .then(() => resolve())
+            .catch((e) => reject(e));
+      });
+    }
+  }
 
   const {xLabel, yLabel, xType, yType} = options;
 
@@ -83,7 +109,7 @@ export function renderBarchart(
       'contains': 'padding',
       'resize': true,
     },
-    'data': {'values': values},
+    'data': {'values': values, 'name': 'values'},
     'mark': 'bar',
     'encoding': {
       'x': {'field': 'index', 'type': xType, 'axis': xAxis},
@@ -95,13 +121,12 @@ export function renderBarchart(
     new Promise(r => requestAnimationFrame(r))
         .then(() => embed(drawArea, spec, embedOpts))
         .then((res: EmbedRes) => {
-          // TODO save and re-use res.view
-          console.log('done rendering', res.view !== undefined);
-          // instances.set(drawArea, res.view);
+          instances.set(drawArea, {
+            view: res.view,
+            lastOptions: options,
+          });
           resolve();
         })
-        .catch((e) => {
-          reject(e);
-        });
+        .catch((e) => reject(e));
   });
 }
