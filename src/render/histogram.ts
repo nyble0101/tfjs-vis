@@ -17,7 +17,7 @@ const defaultOpts = {
  *
  * @param data Data in the following format, (an array of objects)
  *              [ {value: number}, ... ]
- * @param container An HTMLElement in which to draw the histogram
+ * @param container An HTMLElement|Surface in which to draw the histogram
  * @param opts optional parameters
  * @param opts.width width of chart in px
  * @param opts.height height of chart in px
