@@ -15,12 +15,12 @@ const defaultOpts = {
 /**
  * Renders a histogram of values
  *
- * @param data — Data in the following format, (an array of objects)
+ * @param data Data in the following format, (an array of objects)
  *              [ {value: number}, ... ]
- * @param container — An HTMLElement in which to draw the histogram
- * @param opts - optional parameters
- * @param opts.width — width of chart in px
- * @param opts.height — height of chart in px
+ * @param container An HTMLElement in which to draw the histogram
+ * @param opts optional parameters
+ * @param opts.width width of chart in px
+ * @param opts.height height of chart in px
  * @param opts.maxBins maximimum number of bins to use in histogram
  * @param opts.stats summary statistics to show. These will be computed
  *                   internally if no stats are passed. Pass `false` to not
