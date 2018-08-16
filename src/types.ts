@@ -135,6 +135,11 @@ export interface CSSOptions {
   maxHeight: string;
 }
 
+export type Drawable = HTMLElement|Surface|{
+  drawArea: HTMLElement;
+  [others: string]: {}|null|undefined;
+};
+
 /**
  * Common visualisation options for '.render' functions.
  */
@@ -147,7 +152,21 @@ export interface VisOptions {
   yType?: 'quantitative'|'ordinal'|'nominal';
 }
 
-export type Drawable = HTMLElement|Surface|{
-  drawArea: HTMLElement;
-  [others: string]: {}|null|undefined;
+/**
+ * Histogram options.
+ */
+export type HistogramOpts = VisOptions&{
+  stats?: HistogramStats|false;
+  maxBins?: number;
 };
+
+/**
+ * Summary statistics for histogram.
+ */
+export interface HistogramStats {
+  numVals?: number;
+  min?: number;
+  max?: number;
+  numNans?: number;
+  numZeros?: number;
+}
