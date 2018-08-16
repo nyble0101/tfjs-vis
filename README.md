@@ -173,12 +173,33 @@ The library exposes a `render` namespace that provides a number of functions tha
 
 Renders a barchart.
 
-* @param data — Data in the following format, (an array of objects)
+* @param data Data in the following format, (an array of objects)
               `[ {index: number, value: number} ... ]`
-* @param container — A `Surface` or `HTMLElement` in which to draw the barchart. Note thatthis chart expects to have complete control over the contents of the container and can clear its contents at will.
-* @param opts - optional parameters
-* @param opts.width — width of chart in px
-* @param opts.height — height of chart in px
-* @param opts.xLabel — label for x-axis, set to null to hide the
-* @param opts.yLabel — label for y-axis, set to null to hide the
+* @param container A `Surface` or `HTMLElement` in which to draw the barchart. Note thatthis chart expects to have complete control over the contents of the container and can clear its contents at will.
+* @param opts optional parameters
+* @param opts.width width of chart in px
+* @param opts.height height of chart in px
+* @param opts.xLabel label for x-axis, set to null to hide the
+* @param opts.yLabel label for y-axis, set to null to hide the
 * @returns Promise - indicates completion of rendering
+
+
+## render.table: (data: {headers: [], values: [][]}, container: Surface|HTMLElement) => void
+
+Renders a table.
+
+* @param data Data in the following format
+  * {
+    headers: string[],
+    values:  any[][],
+  }
+  * data.headers are the column names
+  * data.values is an array of arrays (one for  each row). The inner
+  array length usually matches the length of data.headers. Usually
+  the values are strings or numbers, these are inserted as html
+  content so html strings are also supported.
+
+* @param container An HTMLElement or Surface in which to draw the table.
+                   Note that the chart expects to have complete control over
+                   the contents of the container and can clear its contents
+                   at will.
