@@ -174,7 +174,7 @@ The library exposes a `render` namespace that provides a number of functions tha
 Renders a barchart.
 
 * @param data Data in the following format:
-  * `[ {value: number}, ... ]` or `[number]` or `TypedArray`
+  * `[ {index: number, value: number} ... ]`
 * @param container A `Surface` or `HTMLElement` in which to draw the barchart. Note thatthis chart expects to have complete control over the contents of the container and can clear its contents at will.
 * @param opts optional parameters
 * @param opts.width width of chart in px
@@ -209,7 +209,7 @@ Renders a table.
 Renders a Histogram.
 
 * @param data Data in the following format, (an array of objects)
-  * [ {value: number}, ... ]
+  * `[ {value: number}, ... ]` or `[number]` or `TypedArray`
 * @param container An `HTMLElement` or `Surface` in which to draw the histogram
 * @param opts optional parameters
 * @param opts.width width of chart in px
