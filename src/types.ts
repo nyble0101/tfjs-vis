@@ -137,7 +137,6 @@ export interface CSSOptions {
 
 export type Drawable = HTMLElement|Surface|{
   drawArea: HTMLElement;
-  [others: string]: {}|null|undefined;
 };
 
 /**
