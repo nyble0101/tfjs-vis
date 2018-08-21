@@ -42,6 +42,34 @@ describe('renderHistogram', () => {
     expect(document.querySelectorAll('table tbody td').length).toBe(5);
   });
 
+  it('renders a histogram with number array', async () => {
+    const data = [50, 100, 100];
+
+    const container = document.getElementById('container') as HTMLElement;
+    await renderHistogram(data, container);
+
+    expect(document.querySelectorAll('.vega-embed').length).toBe(1);
+    expect(document.querySelectorAll('table').length).toBe(1);
+    expect(document.querySelectorAll('table thead tr').length).toBe(1);
+    expect(document.querySelectorAll('table thead th').length).toBe(5);
+    expect(document.querySelectorAll('table tbody tr').length).toBe(1);
+    expect(document.querySelectorAll('table tbody td').length).toBe(5);
+  });
+
+  it('renders a histogram with typed array', async () => {
+    const data = new Int32Array([50, 100, 100]);
+
+    const container = document.getElementById('container') as HTMLElement;
+    await renderHistogram(data, container);
+
+    expect(document.querySelectorAll('.vega-embed').length).toBe(1);
+    expect(document.querySelectorAll('table').length).toBe(1);
+    expect(document.querySelectorAll('table thead tr').length).toBe(1);
+    expect(document.querySelectorAll('table thead th').length).toBe(5);
+    expect(document.querySelectorAll('table tbody tr').length).toBe(1);
+    expect(document.querySelectorAll('table tbody td').length).toBe(5);
+  });
+
   it('re-renders a histogram', async () => {
     const data = [
       {value: 50},

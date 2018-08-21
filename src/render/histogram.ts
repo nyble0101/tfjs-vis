@@ -1,7 +1,7 @@
 import {format as d3Format} from 'd3-format';
 import embed, {Mode, VisualizationSpec} from 'vega-embed';
 
-import {HistogramOpts, HistogramStats} from '../types';
+import {HistogramOpts, HistogramStats, TypedArray} from '../types';
 import {subSurface} from '../util/dom';
 import {arrayStats} from '../util/math';
 
@@ -14,8 +14,8 @@ const defaultOpts = {
 /**
  * Renders a histogram of values
  *
- * @param data Data in the following format, (an array of objects)
- *              [ {value: number}, ... ]
+ * @param data Data in the following format:
+ *  `[ {value: number}, ... ]` or `[number]` or `TypedArray`
  * @param container An `HTMLElement`|`Surface` in which to draw the histogram
  * @param opts optional parameters
  * @param opts.width width of chart in px
@@ -36,9 +36,9 @@ const defaultOpts = {
  *    }
  */
 export async function renderHistogram(
-    data: Array<{value: number}>, container: HTMLElement,
+    data: Array<{value: number}>|number[]|TypedArray, container: HTMLElement,
     opts: HistogramOpts = {}) {
-  const values = data;
+  const values = prepareData(data);
 
   const options = Object.assign({}, defaultOpts, opts);
 
@@ -57,7 +57,7 @@ export async function renderHistogram(
     if (opts.stats) {
       stats = opts.stats;
     } else {
-      stats = arrayStats(data.map(x => x.value));
+      stats = arrayStats(values.map(x => x.value));
     }
     renderStats(stats, statsContainer);
   }
@@ -141,4 +141,30 @@ function renderStats(stats: HistogramStats, container: HTMLElement) {
   }
 
   renderTable({headers, values: [vals]}, container);
+}
+
+/**
+ * Formats data to the internal format used by this chart.
+ */
+function prepareData(data: Array<{value: number}>|number[]|
+                     TypedArray): Array<{value: number}> {
+  if (data.length == null) {
+    throw new Error('input data must be an array');
+  }
+
+  if (data.length === 0) {
+    return [];
+  } else if (typeof data[0] === 'object') {
+    if ((data[0] as {value: number}).value == null) {
+      throw new Error('input data must have a value field');
+    } else {
+      return data as Array<{value: number}>;
+    }
+  } else {
+    const ret = Array(data.length);
+    for (let i = 0; i < data.length; i++) {
+      ret[i] = {value: data[i]};
+    }
+    return ret;
+  }
 }
