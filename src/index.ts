@@ -17,12 +17,14 @@
 
 import {renderBarchart} from './render/barchart';
 import {renderHistogram} from './render/histogram';
+import {renderLinechart} from './render/linechart';
 import {renderTable} from './render/table';
 
 const render = {
   barchart: renderBarchart,
   table: renderTable,
   histogram: renderHistogram,
+  linechart: renderLinechart,
 };
 
 export {visor} from './visor';
