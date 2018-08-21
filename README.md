@@ -206,9 +206,9 @@ Renders a table.
 
 Renders a Histogram.
 
-* @param data Data in the following format, (an array of objects)
+* @param data Data in the following format:
   * `[ {value: number}, ... ]` or `[number]` or `TypedArray`
-* @param container An `HTMLElement` or `Surface` in which to draw the histogram
+* @param container An `HTMLElement` or `Surface` in which to draw the chart
 * @param opts optional parameters
 * @param opts.width width of chart in px
 * @param opts.height height of chart in px
