@@ -254,3 +254,29 @@ Renders a Scatter Plot.
 * @param opts.height height of chart in px
 * @param opts.xLabel label for x axis
 * @param opts.yLabel label for y axis
+
+## render.confusionMatrix(data: {}, container: Surface|HTMLElement, opts: {}) => Promise<void>
+
+Renders a Confusion Matrix.
+
+* @param data Data in the following format: An object with a key for each
+  class, the value for that key will be an object with a key for each class and
+  a value that is the count of that class. e.g:
+  * ```
+    {
+      "dog": {
+        "cat": 23,
+        "dog": 80,
+      },
+      "cat": {
+        "cat": 94,
+        "dog": 56,
+      },
+    }
+    ```
+* @param container An `HTMLElement` or `Surface` in which to draw the chart
+* @param opts optional parameters
+* @param opts.shadeDiagonal boolean that controls whether or not to color cells
+* on the diagonal. Defaults to false
+* @param opts.width width of chart in px
+* @param opts.height height of chart in px

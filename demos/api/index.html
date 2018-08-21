@@ -243,7 +243,6 @@
 
           const data = series1.concat(series2);
 
-
           // Render to visor
           const surface = tfvis.visor().surface({ name: 'Scatterplot', tab: 'Charts' });
           tfvis.render.scatterplot(data, surface);
@@ -251,6 +250,82 @@
           // Render to page
           const container = document.getElementById('scatterplot-cont');
           tfvis.render.scatterplot(data, container, { width: 500, height: 500 });
+        }
+      </script>
+
+      <hr>
+
+      <h3>render.confusionMatrix(data, container, opts)</h3>
+
+      <div id='confmatrix-cont'></div>
+
+      <script class='show-script'>
+        {
+          const data = {
+            'cheese': {
+              'cheese': 4,
+              'pig': 2,
+              'font': 8,
+            },
+            'pig': {
+              'cheese': 8,
+              'pig': 3,
+              'font': 4,
+            },
+            'font': {
+              'cheese': 2,
+              'pig': 2,
+              'font': 10,
+            }
+          };
+
+          // Render to visor
+          const surface = tfvis.visor().surface({ name: 'Confusion Matrix', tab: 'Charts' });
+          tfvis.render.confusionMatrix(data, surface);
+
+          // Render to page
+          const container = document.getElementById('confmatrix-cont');
+          tfvis.render.confusionMatrix(data, container, { width: 500, height: 500 });
+        }
+      </script>
+
+      <p>The diagonal can also be shaded.</p>
+
+      <div id='confmatrix-cont2'></div>
+
+      <script class='show-script'>
+        {
+          const data = {
+            'cheese': {
+              'cheese': 4,
+              'pig': 2,
+              'font': 8,
+            },
+            'pig': {
+              'cheese': 8,
+              'pig': 3,
+              'font': 4,
+            },
+            'font': {
+              'cheese': 2,
+              'pig': 2,
+              'font': 10,
+            }
+          };
+
+          // Render to visor
+          const surface = tfvis.visor().surface({ name: 'Confusion Matrix with Diagonal', tab: 'Charts' });
+          tfvis.render.confusionMatrix(data, surface, {
+            shadeDiagonal: true
+          });
+
+          // Render to page
+          const container = document.getElementById('confmatrix-cont2');
+          tfvis.render.confusionMatrix(data, container, {
+            width: 500,
+            height: 500,
+            shadeDiagonal: true,
+          });
         }
       </script>
 
