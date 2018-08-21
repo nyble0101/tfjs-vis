@@ -174,7 +174,7 @@ The library exposes a `render` namespace that provides a number of functions tha
 Renders a barchart.
 
 * @param data Data in the following format, (an array of objects)
-              `[ {index: number, value: number} ... ]`
+  * `[ {index: number, value: number} ... ]`
 * @param container A `Surface` or `HTMLElement` in which to draw the barchart. Note thatthis chart expects to have complete control over the contents of the container and can clear its contents at will.
 * @param opts optional parameters
 * @param opts.width width of chart in px
@@ -189,10 +189,7 @@ Renders a barchart.
 Renders a table.
 
 * @param data Data in the following format
-  * {
-    headers: string[],
-    values:  any[][],
-  }
+  * `{ headers: string[], values:  any[][], }`
   * data.headers are the column names
   * data.values is an array of arrays (one for  each row). The inner
   array length usually matches the length of data.headers else there will be
@@ -204,12 +201,12 @@ Renders a table.
                    the contents of the container and can clear its contents
                    at will.
 
-## render.histogram(data: [], container: Surface|HTMLElement, opts: {}) => void
+## render.histogram(data: [], container: Surface|HTMLElement, opts: {}) => Promise<void>
 
 Renders a Histogram.
 
 * @param data Data in the following format, (an array of objects)
-  * [ {value: number}, ... ]
+  * `[ {value: number}, ... ]`
 * @param container An `HTMLElement` or `Surface` in which to draw the histogram
 * @param opts optional parameters
 * @param opts.width width of chart in px
@@ -230,3 +227,16 @@ Renders a Histogram.
         numNans?: number
       }
 
+## render.linechart(data: [], container: Surface|HTMLElement, opts: {}) => Promise<void>
+
+Renders a Line Chart.
+
+* Renders a line chart
+* @param data Data in the following format, (an array of objects)
+  * `[ {index: number, value: number, series: string} ... ]`
+* @param container An HTMLElement in which to draw the histogram
+* @param opts optional parameters
+* @param opts.width width of chart in px
+* @param opts.height height of chart in px
+* @param opts.xLabel label for x axis
+* @param opts.yLabel label for y axis
