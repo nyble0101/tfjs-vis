@@ -17,25 +17,24 @@ const defaultOpts = {
  *
  * @param data Data in the following format, (an array of objects)
  *              [ {value: number}, ... ]
- * @param container An HTMLElement|Surface in which to draw the histogram
+ * @param container An `HTMLElement`|`Surface` in which to draw the histogram
  * @param opts optional parameters
  * @param opts.width width of chart in px
  * @param opts.height height of chart in px
  * @param opts.maxBins maximimum number of bins to use in histogram
  * @param opts.stats summary statistics to show. These will be computed
- *                   internally if no stats are passed. Pass `false` to not
- *                   compute any stats. Callers are allowed to pass in their
- *                   own stats as in some cases they may be able to compute
- *                   them more efficiently.
+ *    internally if no stats are passed. Pass `false` to not compute any stats.
+ *    Callers are allowed to pass in their own stats as in some cases they
+ *    may be able to compute them more efficiently.
  *
- *                   Stats should have the following format
- *                   {
- *                     numVals?: number,
- *                     min?: number,
- *                     max?: number,
- *                     numZeros?: number,
- *                     numNans?: number
- *                   }
+ *    Stats should have the following format
+ *    {
+ *      numVals?: number,
+ *      min?: number,
+ *      max?: number,
+ *      numZeros?: number,
+ *      numNans?: number
+ *    }
  */
 export async function renderHistogram(
     data: Array<{value: number}>, container: HTMLElement,

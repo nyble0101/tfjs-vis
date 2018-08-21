@@ -4,7 +4,7 @@ import {tachyons as tac} from 'glamor-tachyons';
 import {getDrawArea} from '../render/render_utils';
 import {Drawable} from '../types';
 
-const defaultSubsurfaceOpts = {
+const DEFAULT_SUBSURFACE_OPTS = {
   prepend: false,
 };
 
@@ -14,7 +14,7 @@ const defaultSubsurfaceOpts = {
 export function subSurface(parent: Drawable, name: string, opts: Options = {}) {
   const container = getDrawArea(parent);
   const style = css({...tac('mv2')});
-  const finalOpts = Object.assign({}, defaultSubsurfaceOpts, opts);
+  const finalOpts = Object.assign({}, DEFAULT_SUBSURFACE_OPTS, opts);
 
   let sub: HTMLElement|null = container.querySelector(`div[data-name=${name}]`);
   if (!sub) {

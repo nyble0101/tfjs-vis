@@ -25,20 +25,20 @@ import {getDrawArea} from './render_utils';
  * Renders a table
  *
  * @param data Data in the following format
- *              {
- *                headers: string[],
- *                values:  any[][],
- *              }
- *              data.headers are the column names
- *              data.values is an array of arrays (one for  each row). The inner
- *              array length usually matches the length of data.headers. Usually
- *              the values are strings or numbers, these are inserted as html
- *              content so html strings are also supported.
+ *    {
+ *      headers: string[],
+ *      values:  any[][],
+ *    }
+ *    data.headers are the column names
+ *    data.values is an array of arrays (one for  each row). The inner
+ *    array length usually matches the length of data.headers. Usually
+ *    the values are strings or numbers, these are inserted as html
+ *    content so html strings are also supported.
  *
- * @param container An HTMLElement or Surface in which to draw the table.
- *                  Note that the chart expects to have complete control over
- *                  the contents of the container and can clear its contents
- *                  at will.
+ * @param container An `HTMLElement` or `Surface` in which to draw the table.
+ *    Note that the chart expects to have complete control over
+ *    the contents of the container and can clear its contents
+ *    at will.
  */
 export function renderTable(
     // tslint:disable-next-line:no-any
