@@ -117,7 +117,8 @@ describe('tensorStats', () => {
   it('computes correct stats — all NaNs', async () => {
     const data = tf.tensor([NaN, NaN, NaN, NaN]);
     const stats = await tensorStats(data);
-
+    expect(isNaN(stats.max!)).toBe(true);
+    expect(isNaN(stats.min!)).toBe(true);
     expect(stats.numVals).toBe(4);
     expect(stats.numNans).toBe(4);
     expect(stats.numZeros).toBe(0);

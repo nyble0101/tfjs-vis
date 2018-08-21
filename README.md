@@ -173,8 +173,8 @@ The library exposes a `render` namespace that provides a number of functions tha
 
 Renders a barchart.
 
-* @param data Data in the following format, (an array of objects)
-              `[ {index: number, value: number} ... ]`
+* @param data Data in the following format:
+  * `[ {value: number}, ... ]` or `[number]` or `TypedArray`
 * @param container A `Surface` or `HTMLElement` in which to draw the barchart. Note thatthis chart expects to have complete control over the contents of the container and can clear its contents at will.
 * @param opts optional parameters
 * @param opts.width width of chart in px

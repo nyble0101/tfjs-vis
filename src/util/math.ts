@@ -66,11 +66,14 @@ export function arrayStats(input: number[]): HistogramStats {
 }
 
 /**
- * Returns summary statistics for a numeric tensor.
+ * Returns summary statistics for a numeric tensor. *
  *
  * @param input
  */
 export async function tensorStats(input: Tensor): Promise<HistogramStats> {
+  // TODO. Benchmark this and consider having one of the *stats functions
+  // delegate to the other.
+
   const [min, max, numZeros] = tidy(() => {
     const zero = scalar(0, input.dtype);
 
@@ -94,12 +97,20 @@ export async function tensorStats(input: Tensor): Promise<HistogramStats> {
           }
         }
 
+        let trueMin = minVal[0];
+        let trueMax = maxVal[0];
+        if (numNans === numVals) {
+          // on gpu the min and max won't be accurate if all values are NaN
+          trueMin = NaN;
+          trueMax = NaN;
+        }
+
         const stats = {
           numVals,
           numZeros: numZerosVal[0],
           numNans,
-          min: minVal[0],
-          max: maxVal[0],
+          min: trueMin,
+          max: trueMax,
         };
 
         return stats;
