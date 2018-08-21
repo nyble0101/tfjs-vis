@@ -1,5 +1,4 @@
 import {format as d3Format} from 'd3-format';
-import {stat} from 'fs';
 import embed, {Mode, VisualizationSpec} from 'vega-embed';
 
 import {HistogramOpts, HistogramStats} from '../types';

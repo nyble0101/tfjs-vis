@@ -18,6 +18,7 @@
 import {renderBarchart} from './render/barchart';
 import {renderHistogram} from './render/histogram';
 import {renderLinechart} from './render/linechart';
+import {renderScatterplot} from './render/scatterplot';
 import {renderTable} from './render/table';
 
 const render = {
@@ -25,6 +26,7 @@ const render = {
   table: renderTable,
   histogram: renderHistogram,
   linechart: renderLinechart,
+  scatterplot: renderScatterplot,
 };
 
 export {visor} from './visor';

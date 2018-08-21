@@ -231,7 +231,20 @@ Renders a Histogram.
 
 Renders a Line Chart.
 
-* Renders a line chart
+* @param data Data in the following format, (an array of objects)
+  * `[ {index: number, value: number, series: string} ... ]`
+* @param container An HTMLElement in which to draw the histogram
+* @param opts optional parameters
+* @param opts.width width of chart in px
+* @param opts.height height of chart in px
+* @param opts.xLabel label for x axis
+* @param opts.yLabel label for y axis
+
+
+## render.scatterplot(data: [], container: Surface|HTMLElement, opts: {}) => Promise<void>
+
+Renders a Scatter Plot.
+
 * @param data Data in the following format, (an array of objects)
   * `[ {index: number, value: number, series: string} ... ]`
 * @param container An HTMLElement in which to draw the histogram

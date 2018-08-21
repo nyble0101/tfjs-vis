@@ -228,6 +228,35 @@
 
       <hr>
 
+      <h3>render.scatterplot(data, container, opts)</h3>
+
+      <div id='scatterplot-cont'></div>
+
+      <script class='show-script'>
+        {
+          const series1 = Array(100).fill(0)
+            .map(x => Math.random() * 100 - (Math.random() * 50))
+            .map((x, index) => ({ index, value: x, series: 'Series1' }));
+
+          const series2 = Array(100).fill(0)
+            .map(x => Math.random() * 100 - (Math.random() * 150))
+            .map((x, index) => ({ index, value: x, series: 'Series 2' }));
+
+          const data = series1.concat(series2);
+
+
+          // Render to visor
+          const surface = tfvis.visor().surface({ name: 'Scatterplot', tab: 'Charts' });
+          tfvis.render.scatterplot(data, surface);
+
+          // Render to page
+          const container = document.getElementById('scatterplot-cont');
+          tfvis.render.scatterplot(data, container, { width: 500, height: 500 });
+        }
+      </script>
+
+      <hr>
+
     </section>
 
   </article>
