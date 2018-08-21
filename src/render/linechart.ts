@@ -108,17 +108,16 @@ export async function renderLinechart(
             'field': 'value',
             'format': '.6f',
           },
-          // TODO reconsider text color
-          // 'color': undefined,
+          // Unset text color to improve readability
+          'color': undefined,
         }),
       },
 
     ],
   };
 
-  requestAnimationFrame(() => {
-    embed(drawArea, spec, embedOpts);
-  });
+  await embed(drawArea, spec, embedOpts);
+  return Promise.resolve();
 }
 
 const defaultOpts = {
