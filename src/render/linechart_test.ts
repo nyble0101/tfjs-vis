@@ -23,11 +23,13 @@ describe('renderLineChart', () => {
   });
 
   it('renders a line chart', async () => {
-    const data = [
-      {series: 'name', index: 0, value: 50},
-      {series: 'name', index: 1, value: 100},
-      {series: 'name', index: 2, value: 230},
-    ];
+    const data = {
+      values: [
+        {x: 0, y: 50},
+        {x: 1, y: 100},
+        {x: 2, y: 230},
+      ]
+    };
 
     const container = document.getElementById('container') as HTMLElement;
     await renderLinechart(data, container);
@@ -35,50 +37,103 @@ describe('renderLineChart', () => {
     expect(document.querySelectorAll('.vega-embed').length).toBe(1);
   });
 
-  it('re-renders a line chart', async () => {
-    const data = [
-      {series: 'name', index: 0, value: 50},
-      {series: 'name', index: 1, value: 100},
-      {series: 'name', index: 2, value: 230},
-    ];
+  it('renders a line chart with multiple series', async () => {
+    const data = {
+      values: [
+        [
+          {x: 0, y: 50},
+          {x: 1, y: 100},
+          {x: 2, y: 230},
+        ],
+        [
+          {x: 0, y: 20},
+          {x: 1, y: 300},
+          {x: 2, y: 630},
+        ],
+      ]
+    };
 
     const container = document.getElementById('container') as HTMLElement;
 
     await renderLinechart(data, container);
     expect(document.querySelectorAll('.vega-embed').length).toBe(1);
+  });
+
+  it('renders a line chart with multiple series custom names', async () => {
+    const data = {
+      values: [
+        [
+          {x: 0, y: 50},
+          {x: 1, y: 100},
+          {x: 2, y: 230},
+        ],
+        [
+          {x: 0, y: 20},
+          {x: 1, y: 300},
+          {x: 2, y: 630},
+        ],
+      ],
+      series: ['First', 'Second'],
+    };
+
+    const container = document.getElementById('container') as HTMLElement;
 
     await renderLinechart(data, container);
     expect(document.querySelectorAll('.vega-embed').length).toBe(1);
   });
 
   it('updates a line chart', async () => {
-    let data = [
-      {series: 'name', index: 0, value: 50},
-      {series: 'name', index: 1, value: 100},
-      {series: 'name', index: 2, value: 150},
-    ];
+    let data = {
+      values: [
+        [
+          {x: 0, y: 50},
+          {x: 1, y: 100},
+          {x: 2, y: 230},
+        ],
+        [
+          {x: 0, y: 20},
+          {x: 1, y: 300},
+          {x: 2, y: 630},
+        ],
+      ],
+      series: ['First', 'Second'],
+    };
 
     const container = document.getElementById('container') as HTMLElement;
 
     await renderLinechart(data, container);
     expect(document.querySelectorAll('.vega-embed').length).toBe(1);
 
-    data = [
-      {series: 'name', index: 0, value: 50},
-      {series: 'name', index: 1, value: 100},
-      {series: 'name', index: 2, value: 150},
-    ];
+    data = {
+      values: [
+        [
+          {x: 0, y: 50},
+          {x: 1, y: 100},
+          {x: 2, y: 230},
+        ],
+        [
+          {x: 0, y: 20},
+          {x: 1, y: 300},
+          {x: 2, y: 630},
+          {x: 3, y: 530},
+          {x: 4, y: 230},
+        ],
+      ],
+      series: ['First', 'Second'],
+    };
 
     await renderLinechart(data, container);
     expect(document.querySelectorAll('.vega-embed').length).toBe(1);
   });
 
   it('sets width of chart', async () => {
-    const data = [
-      {series: 'name', index: 0, value: 50},
-      {series: 'name', index: 1, value: 100},
-      {series: 'name', index: 2, value: 230},
-    ];
+    const data = {
+      values: [
+        {x: 0, y: 50},
+        {x: 1, y: 100},
+        {x: 2, y: 230},
+      ]
+    };
 
     const container = document.getElementById('container') as HTMLElement;
     await renderLinechart(data, container, {width: 400});
@@ -89,11 +144,13 @@ describe('renderLineChart', () => {
   });
 
   it('sets height of chart', async () => {
-    const data = [
-      {series: 'name', index: 0, value: 50},
-      {series: 'name', index: 1, value: 100},
-      {series: 'name', index: 2, value: 230},
-    ];
+    const data = {
+      values: [
+        {x: 0, y: 50},
+        {x: 1, y: 100},
+        {x: 2, y: 230},
+      ]
+    };
 
     const container = document.getElementById('container') as HTMLElement;
     await renderLinechart(data, container, {height: 200});

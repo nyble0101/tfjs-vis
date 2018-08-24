@@ -190,7 +190,7 @@ Renders a barchart.
 Renders a table.
 
 * @param data Data in the following format
-  * `{ headers: string[], values:  any[][], }`
+  * `{ headers: string[], values:  any[][] }`
   * data.headers are the column names
   * data.values is an array of arrays (one for  each row). The inner
   array length usually matches the length of data.headers else there will be
@@ -232,8 +232,18 @@ Renders a Histogram.
 
 Renders a Line Chart.
 
-* @param data Data in the following format, (an array of objects)
-  * `[ {index: number, value: number, series: string} ... ]`
+* @param data Data in the following format
+  * ```{
+    values: [ [x: number, y: number, ...], ... ]
+    // A nested array of objects each with an x and y property,
+    // one per series.
+    // If you only have one series to render you can just pass an array
+    // of objects with x, y properties
+
+    series: [ string, ...]
+    // An array of strings with the names of each series passed above.
+    // Optional
+  }```
 * @param container An HTMLElement in which to draw the chart
 * @param opts optional parameters
 * @param opts.width width of chart in px
