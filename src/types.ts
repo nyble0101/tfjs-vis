@@ -183,3 +183,8 @@ export type ConfusionMatrixData = {
 type StringToNumberObj = {
   [key2: string]: number
 };
+
+export interface XYVal {
+  x: number;
+  y: number;
+}

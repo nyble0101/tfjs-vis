@@ -235,14 +235,16 @@
       <script class='show-script'>
         {
           const series1 = Array(100).fill(0)
-            .map(x => Math.random() * 100 - (Math.random() * 50))
-            .map((x, index) => ({ index, value: x, series: 'Series1' }));
+            .map(y => Math.random() * 100 - (Math.random() * 50))
+            .map((y, index) => ({ x: index, y, }));
 
           const series2 = Array(100).fill(0)
-            .map(x => Math.random() * 100 - (Math.random() * 150))
-            .map((x, index) => ({ index, value: x, series: 'Series 2' }));
+            .map(y => Math.random() * 100 - (Math.random() * 150))
+            .map((y, index) => ({ x: index, y, }));
 
-          const data = series1.concat(series2);
+
+          const series = ['First', 'Second'];
+          const data = { values: [series1, series2], series }
 
           // Render to visor
           const surface = tfvis.visor().surface({ name: 'Scatterplot', tab: 'Charts' });

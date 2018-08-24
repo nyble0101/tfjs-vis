@@ -23,11 +23,13 @@ describe('renderScatterplot', () => {
   });
 
   it('renders a scatterplot', async () => {
-    const data = [
-      {index: 0, value: 20, series: 'first'},
-      {index: 1, value: 30, series: 'first'},
-      {index: 2, value: 40, series: 'first'},
-    ];
+    const data = {
+      values: [
+        {x: 0, y: 50},
+        {x: 1, y: 100},
+        {x: 2, y: 230},
+      ]
+    };
 
     const container = document.getElementById('container') as HTMLElement;
     await renderScatterplot(data, container);
@@ -35,50 +37,106 @@ describe('renderScatterplot', () => {
     expect(document.querySelectorAll('.vega-embed').length).toBe(1);
   });
 
-  it('re-renders the chart', async () => {
-    const data = [
-      {index: 0, value: 20, series: 'first'},
-      {index: 1, value: 30, series: 'first'},
-      {index: 2, value: 40, series: 'first'},
-    ];
+  it('renders the chart with multiple series', async () => {
+    const data = {
+      values: [
+        [
+          {x: 0, y: 50},
+          {x: 1, y: 100},
+          {x: 2, y: 230},
+        ],
+        [
+          {x: 0, y: 20},
+          {x: 1, y: 300},
+          {x: 2, y: 630},
+        ],
+      ]
+    };
 
     const container = document.getElementById('container') as HTMLElement;
 
     await renderScatterplot(data, container);
     expect(document.querySelectorAll('.vega-embed').length).toBe(1);
+
+    await renderScatterplot(data, container);
+    expect(document.querySelectorAll('.vega-embed').length).toBe(1);
+  });
+
+  it('renders a line chart with multiple series custom names', async () => {
+    const data = {
+      values: [
+        [
+          {x: 0, y: 50},
+          {x: 1, y: 100},
+          {x: 2, y: 230},
+        ],
+        [
+          {x: 0, y: 20},
+          {x: 1, y: 300},
+          {x: 2, y: 630},
+        ],
+      ],
+      series: ['First', 'Second'],
+    };
+
+    const container = document.getElementById('container') as HTMLElement;
 
     await renderScatterplot(data, container);
     expect(document.querySelectorAll('.vega-embed').length).toBe(1);
   });
 
   it('updates the chart', async () => {
-    let data = [
-      {index: 0, value: 20, series: 'first'},
-      {index: 1, value: 30, series: 'first'},
-      {index: 2, value: 40, series: 'first'},
-    ];
+    let data = {
+      values: [
+        [
+          {x: 0, y: 50},
+          {x: 1, y: 100},
+          {x: 2, y: 230},
+        ],
+        [
+          {x: 0, y: 20},
+          {x: 1, y: 300},
+          {x: 2, y: 630},
+        ],
+      ],
+      series: ['First', 'Second'],
+    };
 
     const container = document.getElementById('container') as HTMLElement;
 
     await renderScatterplot(data, container);
     expect(document.querySelectorAll('.vega-embed').length).toBe(1);
 
-    data = [
-      {index: 0, value: 120, series: 'first'},
-      {index: 1, value: 130, series: 'first'},
-      {index: 2, value: 140, series: 'first'},
-    ];
+    data = {
+      values: [
+        [
+          {x: 0, y: 50},
+          {x: 1, y: 100},
+          {x: 2, y: 230},
+        ],
+        [
+          {x: 0, y: 20},
+          {x: 1, y: 300},
+          {x: 2, y: 630},
+          {x: 3, y: 530},
+          {x: 4, y: 230},
+        ],
+      ],
+      series: ['First', 'Second'],
+    };
 
     await renderScatterplot(data, container);
     expect(document.querySelectorAll('.vega-embed').length).toBe(1);
   });
 
   it('sets width of chart', async () => {
-    const data = [
-      {index: 0, value: 20, series: 'first'},
-      {index: 1, value: 30, series: 'first'},
-      {index: 2, value: 40, series: 'first'},
-    ];
+    const data = {
+      values: [
+        {x: 0, y: 50},
+        {x: 1, y: 100},
+        {x: 2, y: 230},
+      ]
+    };
 
     const container = document.getElementById('container') as HTMLElement;
     await renderScatterplot(data, container, {width: 400});
@@ -89,11 +147,13 @@ describe('renderScatterplot', () => {
   });
 
   it('sets height of chart', async () => {
-    const data = [
-      {index: 0, value: 20, series: 'first'},
-      {index: 1, value: 30, series: 'first'},
-      {index: 2, value: 40, series: 'first'},
-    ];
+    const data = {
+      values: [
+        {x: 0, y: 50},
+        {x: 1, y: 100},
+        {x: 2, y: 230},
+      ]
+    };
 
     const container = document.getElementById('container') as HTMLElement;
     await renderScatterplot(data, container, {height: 200});

@@ -1,6 +1,6 @@
 import embed, {Mode, VisualizationSpec} from 'vega-embed';
 
-import {Drawable, VisOptions} from '../types';
+import {Drawable, VisOptions, XYVal} from '../types';
 import {getDrawArea} from './render_utils';
 
 /**
@@ -25,14 +25,14 @@ import {getDrawArea} from './render_utils';
  * @param opts.yLabel label for y axis
  */
 export async function renderLinechart(
-    data: {values: XYVals[][]|XYVals[], series?: string[]}, container: Drawable,
+    data: {values: XYVal[][]|XYVal[], series?: string[]}, container: Drawable,
     opts: VisOptions = {}): Promise<void> {
   let _values = data.values;
   const _series = data.series == null ? [] : data.series;
 
   // Nest data if necessary before further processing
-  _values = Array.isArray(_values[0]) ? _values as XYVals[][] :
-                                        [_values] as XYVals[][];
+  _values =
+      Array.isArray(_values[0]) ? _values as XYVal[][] : [_values] as XYVal[][];
 
   const values = _values.reduce((memo, seriesData, i) => {
     const seriesName: string =
@@ -150,8 +150,3 @@ const defaultOpts = {
   xType: 'quantitative',
   yType: 'quantitative',
 };
-
-interface XYVals {
-  x: number;
-  y: number;
-}
