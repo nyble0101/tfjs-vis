@@ -67,7 +67,7 @@ import {getDrawArea} from './render_utils';
  */
 export async function renderConfusionMatrix(
     data: ConfusionMatrixData, container: Drawable,
-    opts: VisOptions&{shadeDiagonal?: boolean} = {}) {
+    opts: VisOptions&{shadeDiagonal?: boolean} = {}): Promise<void> {
   const options = Object.assign({}, defaultOpts, opts);
   const drawArea = getDrawArea(container);
 
@@ -81,7 +81,7 @@ export async function renderConfusionMatrix(
     const labels = data.labels;
 
     for (let i = 0; i < iterable.length; i++) {
-      for (let j = 0; i < iterable[i].length; j++) {
+      for (let j = 0; j < iterable[i].length; j++) {
         const label = labels ? labels[i] : `Class ${i}`;
         const prediction = labels ? labels[j] : `Class ${j}`;
         const count = iterable[i][j];

@@ -24,21 +24,8 @@ describe('renderConfusionMatrix', () => {
 
   it('renders a chart', async () => {
     const data = {
-      'cheese': {
-        'cheese': 4,
-        'pig': 2,
-        'font': 8,
-      },
-      'pig': {
-        'cheese': 8,
-        'pig': 3,
-        'font': 4,
-      },
-      'font': {
-        'cheese': 2,
-        'pig': 2,
-        'font': 10,
-      }
+      values: [[4, 2, 8], [1, 7, 2], [3, 3, 20]],
+      labels: ['cheese', 'pig', 'font'],
     };
 
     const container = document.getElementById('container') as HTMLElement;
@@ -49,22 +36,9 @@ describe('renderConfusionMatrix', () => {
 
   it('renders a chart with shaded diagonal', async () => {
     const data = {
-      'cheese': {
-        'cheese': 4,
-        'pig': 2,
-        'font': 8,
-      },
-      'pig': {
-        'cheese': 8,
-        'pig': 3,
-        'font': 4,
-      },
-      'font': {
-        'cheese': 2,
-        'pig': 2,
-        'font': 10,
-      }
-    };
+      values: [[4, 2, 8], [1, 7, 2], [3, 3, 20]],
+      labels: ['cheese', 'pig', 'font'],
+    }
 
     const container = document.getElementById('container') as HTMLElement;
     await renderConfusionMatrix(data, container, {shadeDiagonal: true});
@@ -72,29 +46,12 @@ describe('renderConfusionMatrix', () => {
     expect(document.querySelectorAll('.vega-embed').length).toBe(1);
   });
 
-  it('re-renders the chart', async () => {
+  it('renders the chart with generated labels', async () => {
     const data = {
-      'cheese': {
-        'cheese': 4,
-        'pig': 2,
-        'font': 8,
-      },
-      'pig': {
-        'cheese': 8,
-        'pig': 3,
-        'font': 4,
-      },
-      'font': {
-        'cheese': 2,
-        'pig': 2,
-        'font': 10,
-      }
+      values: [[4, 2, 8], [1, 7, 2], [3, 3, 20]],
     };
 
     const container = document.getElementById('container') as HTMLElement;
-
-    await renderConfusionMatrix(data, container);
-    expect(document.querySelectorAll('.vega-embed').length).toBe(1);
 
     await renderConfusionMatrix(data, container);
     expect(document.querySelectorAll('.vega-embed').length).toBe(1);
@@ -102,22 +59,9 @@ describe('renderConfusionMatrix', () => {
 
   it('updates the chart', async () => {
     let data = {
-      'cheese': {
-        'cheese': 4,
-        'pig': 2,
-        'font': 8,
-      },
-      'pig': {
-        'cheese': 8,
-        'pig': 3,
-        'font': 4,
-      },
-      'font': {
-        'cheese': 2,
-        'pig': 2,
-        'font': 10,
-      }
-    };
+      values: [[4, 2, 8], [1, 7, 2], [3, 3, 20]],
+      labels: ['cheese', 'pig', 'font'],
+    }
 
     const container = document.getElementById('container') as HTMLElement;
 
@@ -125,22 +69,9 @@ describe('renderConfusionMatrix', () => {
     expect(document.querySelectorAll('.vega-embed').length).toBe(1);
 
     data = {
-      'cheese': {
-        'cheese': 4,
-        'pig': 22,
-        'font': 38,
-      },
-      'pig': {
-        'cheese': 48,
-        'pig': 0,
-        'font': 24,
-      },
-      'font': {
-        'cheese': 12,
-        'pig': 32,
-        'font': 10,
-      }
-    };
+      values: [[43, 2, 8], [1, 7, 2], [3, 3, 20]],
+      labels: ['cheese', 'pig', 'font'],
+    }
 
     await renderConfusionMatrix(data, container);
     expect(document.querySelectorAll('.vega-embed').length).toBe(1);
@@ -148,21 +79,8 @@ describe('renderConfusionMatrix', () => {
 
   it('sets width of chart', async () => {
     const data = {
-      'cheese': {
-        'cheese': 4,
-        'pig': 2,
-        'font': 8,
-      },
-      'pig': {
-        'cheese': 8,
-        'pig': 3,
-        'font': 4,
-      },
-      'font': {
-        'cheese': 2,
-        'pig': 2,
-        'font': 10,
-      }
+      values: [[4, 2, 8], [1, 7, 2], [3, 3, 20]],
+      labels: ['cheese', 'pig', 'font'],
     };
 
     const container = document.getElementById('container') as HTMLElement;
@@ -175,21 +93,8 @@ describe('renderConfusionMatrix', () => {
 
   it('sets height of chart', async () => {
     const data = {
-      'cheese': {
-        'cheese': 4,
-        'pig': 2,
-        'font': 8,
-      },
-      'pig': {
-        'cheese': 8,
-        'pig': 3,
-        'font': 4,
-      },
-      'font': {
-        'cheese': 2,
-        'pig': 2,
-        'font': 10,
-      }
+      values: [[4, 2, 8], [1, 7, 2], [3, 3, 20]],
+      labels: ['cheese', 'pig', 'font'],
     };
 
     const container = document.getElementById('container') as HTMLElement;
