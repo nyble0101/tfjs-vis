@@ -173,31 +173,9 @@ export interface HistogramStats {
 export type TypedArray = Int8Array|Uint8Array|Int16Array|Uint16Array|Int32Array|
     Uint32Array|Uint8ClampedArray|Float32Array|Float64Array;
 
-/**
- * Data format for confusion matrix is a nested object
- */
-export type ConfusionMatrixData = ConfusionMatrixObject|ConfusionMatrixArray;
-
-export interface ConfusionMatrixObject {
-  [key: string]: StringToNumber;
-}
-
-type StringToNumber = {
-  [key: string]: number
-};
-
-interface ConfusionMatrixArray {
+export interface ConfusionMatrixData {
   values: number[][];
   labels?: string[];
-}
-
-// Helper functions for confusion matrix data
-export function isConfusionMatrixArray(input: ConfusionMatrixData):
-    input is ConfusionMatrixArray {
-  if (input.values != null && Array.isArray(input.values)) {
-    return true;
-  }
-  return false;
 }
 
 /**
