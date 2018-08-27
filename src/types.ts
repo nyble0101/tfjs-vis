@@ -176,14 +176,33 @@ export type TypedArray = Int8Array|Uint8Array|Int16Array|Uint16Array|Int32Array|
 /**
  * Data format for confusion matrix is a nested object
  */
-export type ConfusionMatrixData = {
-  [key: string]: StringToNumberObj
+export type ConfusionMatrixData = ConfusionMatrixObject|ConfusionMatrixArray;
+
+export interface ConfusionMatrixObject {
+  [key: string]: StringToNumber;
+}
+
+type StringToNumber = {
+  [key: string]: number
 };
 
-type StringToNumberObj = {
-  [key2: string]: number
-};
+interface ConfusionMatrixArray {
+  values: number[][];
+  labels?: string[];
+}
 
+// Helper functions for confusion matrix data
+export function isConfusionMatrixArray(input: ConfusionMatrixData):
+    input is ConfusionMatrixArray {
+  if (input.values != null && Array.isArray(input.values)) {
+    return true;
+  }
+  return false;
+}
+
+/**
+ * Datum format for scatter and line plots
+ */
 export interface XYVal {
   x: number;
   y: number;

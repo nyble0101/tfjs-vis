@@ -17,26 +17,45 @@
 
 import embed, {Mode, VisualizationSpec} from 'vega-embed';
 
-import {ConfusionMatrixData, Drawable, VisOptions} from '../types';
+import {ConfusionMatrixData, ConfusionMatrixObject, Drawable, isConfusionMatrixArray, VisOptions,} from '../types';
 import {getDrawArea} from './render_utils';
 
 /**
  * Renders a confusion matrix
  *
- * @param data Data in the following format. An object with a key for each
- * class, the value for that key will be an object with a key for each class and
- * a value that is the count of that class.
- * e.g.
- * {
- *   "dog": {
- *     "cat": 23,
- *     "dog": 80,
- *   },
- *   "cat": {
- *     "cat": 94,
- *     "dog": 56,
- *   },
- * }
+ * @param data Data can be one of two formats:
+ *  The canonical format consists of an object with a  values property
+ *  and a labels property.
+ *  {
+ *    // a matrix of numbers representing counts for each (label, prediction)
+ *    // pair
+ *    values: number[][],
+ *
+ *    // Human readable labels for each class in the matrix. Optional
+ *    labels?: string[]
+ *  }
+ *  e.g.
+ *  {
+ *    values: [[80, 23], [56, 94]],
+ *    labels: ['dog', 'cat'],
+ *  }
+ *
+ *  The second format is designed to be easier to read in the console but is
+ *  much less memory efficient. It consists of an object with a key for each
+ *  class, the value for that key will be an object that also has a key for
+ *  each class and a value that is the number of predictions for that cell
+ *  in the matrix
+ *  e.g.
+ *  {
+ *    "dog": {
+ *      "dog": 80,
+ *      "cat": 23,
+ *    },
+ *    "cat": {
+ *      "dog": 56,
+ *      "cat": 94,
+ *    },
+ *  }
  *
  *
  * @param container An `HTMLElement` or `Surface` in which to draw the chart
@@ -52,30 +71,37 @@ export async function renderConfusionMatrix(
   const options = Object.assign({}, defaultOpts, opts);
   const drawArea = getDrawArea(container);
 
-  // Format data for vega spec. WHich is an array of objects for each cell
+  // Format data for vega spec; an array of objects, one for for each cell
   // in the matrix.
+
   const values = [];
-  for (const label in data) {
-    const preds = data[label];
-    for (const prediction in preds) {
-      const count = data[label][prediction];
-      if (label === prediction) {
-        // Experiment with not shading the diagonal
-        let diagVal;
-        if (options.shadeDiagonal) {
-          diagVal = {label, prediction, count};
+
+  if (isConfusionMatrixArray(data)) {
+    const iterable = data.values;
+    const labels = data.labels;
+
+    for (let i = 0; i < iterable.length; i++) {
+      for (let j = 0; i < iterable[i].length; j++) {
+        const label = labels ? labels[i] : `Class ${i}`;
+        const prediction = labels ? labels[j] : `Class ${j}`;
+        const count = iterable[i][j];
+        if (i === j && !options.shadeDiagonal) {
+          values.push({label, prediction, diagCount: count});
         } else {
-          // We do not set the 'count' so that the cell doesn't get shaded
-          // Hoever we add in a diagCount var so that a count can be rendered.
-          diagVal = {label, prediction, diagCount: count};
+          values.push({label, prediction, count});
         }
-        values.push(diagVal);
-      } else {
-        values.push({
-          label,
-          prediction,
-          count,
-        });
+      }
+    }
+  } else {
+    for (const label in data) {
+      const preds = data[label];
+      for (const prediction in preds) {
+        const count = data[label][prediction];
+        if (label === prediction && !options.shadeDiagonal) {
+          values.push({label, prediction, diagCount: count});
+        } else {
+          values.push({label, prediction, count});
+        }
       }
     }
   }
