@@ -233,17 +233,19 @@ Renders a Histogram.
 Renders a Line Chart.
 
 * @param data Data in the following format
-  * ```{
+  ```ts
+  {
     values: [ [x: number, y: number, ...], ... ]
     // A nested array of objects each with an x and y property,
     // one per series.
     // If you only have one series to render you can just pass an array
     // of objects with x, y properties
 
-    series: [ string, ...]
+    series: [ label: string, ...]
     // An array of strings with the names of each series passed above.
     // Optional
-  }```
+  }
+  ```
 * @param container An HTMLElement in which to draw the chart
 * @param opts optional parameters
 * @param opts.width width of chart in px
@@ -257,17 +259,19 @@ Renders a Line Chart.
 Renders a Scatter Plot.
 
 * @param data Data in the following format
-  * ```{
+  ```ts
+  {
     values: [ [x: number, y: number, ...], ... ]
     // A nested array of objects each with an x and y property,
     // one per series.
     // If you only have one series to render you can just pass an array
     // of objects with x, y properties
 
-    series: [ string, ...]
+    series: [ label: string, ...]
     // An array of strings with the names of each series passed above.
     // Optional
-  }```
+  }
+  ```
 * @param container An HTMLElement in which to draw the chart
 * @param opts optional parameters
 * @param opts.width width of chart in px
@@ -277,23 +281,26 @@ Renders a Scatter Plot.
 
 ## render.confusionMatrix(data: {}, container: Surface|HTMLElement, opts: {}) => Promise<void>
 
-Renders a Confusion Matrix.
+Renders a confusion matrix
 
-* @param data Data in the following format: An object with a key for each
-  class, the value for that key will be an object with a key for each class and
-  a value that is the count of that class. e.g:
-  * ```
-    {
-      "dog": {
-        "cat": 23,
-        "dog": 80,
-      },
-      "cat": {
-        "cat": 94,
-        "dog": 56,
-      },
-    }
-    ```
+* @param data Data consists of an object with a 'values' property
+  and a 'labels' property.
+  ```ts
+  {
+    values: number[][],
+    // a matrix of numbers representing counts for each (label, prediction) pair
+
+    labels?: string[]
+    // Human readable labels for each class in the matrix. Optional
+  }
+  ```
+  e.g.
+  ```js
+  {
+    values: [[80, 23], [56, 94]],
+    labels: ['dog', 'cat'],
+  }
+  ```
 * @param container An `HTMLElement` or `Surface` in which to draw the chart
 * @param opts optional parameters
 * @param opts.shadeDiagonal boolean that controls whether or not to color cells
