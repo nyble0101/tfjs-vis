@@ -206,11 +206,11 @@
         {
           const series1 = Array(100).fill(0)
             .map(y => Math.random() * 100 - (Math.random() * 50))
-            .map((y, index) => ({ x: index, y, }));
+            .map((y, x) => ({ x, y, }));
 
           const series2 = Array(100).fill(0)
             .map(y => Math.random() * 100 - (Math.random() * 150))
-            .map((y, index) => ({ x: index, y, }));
+            .map((y, x) => ({ x, y, }));
 
 
           const series = ['First', 'Second'];
@@ -236,11 +236,11 @@
         {
           const series1 = Array(100).fill(0)
             .map(y => Math.random() * 100 - (Math.random() * 50))
-            .map((y, index) => ({ x: index, y, }));
+            .map((y, x) => ({ x, y, }));
 
           const series2 = Array(100).fill(0)
             .map(y => Math.random() * 100 - (Math.random() * 150))
-            .map((y, index) => ({ x: index, y, }));
+            .map((y, x) => ({ x, y, }));
 
 
           const series = ['First', 'Second'];

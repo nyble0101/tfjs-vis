@@ -55,14 +55,14 @@ export async function renderConfusionMatrix(
   // in the matrix.
   const values = [];
 
-  const iterable = data.values;
+  const inputArray = data.values;
   const labels = data.labels;
 
-  for (let i = 0; i < iterable.length; i++) {
-    for (let j = 0; j < iterable[i].length; j++) {
+  for (let i = 0; i < inputArray.length; i++) {
+    for (let j = 0; j < inputArray[i].length; j++) {
       const label = labels ? labels[i] : `Class ${i}`;
       const prediction = labels ? labels[j] : `Class ${j}`;
-      const count = iterable[i][j];
+      const count = inputArray[i][j];
       if (i === j && !options.shadeDiagonal) {
         values.push({label, prediction, diagCount: count});
       } else {

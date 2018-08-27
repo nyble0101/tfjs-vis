@@ -181,7 +181,6 @@ export interface ConfusionMatrixData {
 /**
  * Datum format for scatter and line plots
  */
-export interface XYVal {
-  x: number;
-  y: number;
-}
+export type XYVal = {
+  x: number; y: number;
+};

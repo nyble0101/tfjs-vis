@@ -6,17 +6,18 @@ import {getDrawArea} from './render_utils';
 
 /**
  * Renders a scatter plot
+ *
  * @param data Data in the following format
  *  {
- *    values: [ [x: number, y: number, ...], ... ]
  *    // A nested array of objects each with an x and y property,
  *    // one per series.
  *    // If you only have one series to render you can just pass an array
  *    // of objects with x, y properties
+ *    values: {x: number, y: number}[][]
  *
- *    series: [ string, ...]
  *    // An array of strings with the names of each series passed above.
  *    // Optional
+ *    series: string[]
  *  }
  * @param container An HTMLElement in which to draw the chart
  * @param opts optional parameters

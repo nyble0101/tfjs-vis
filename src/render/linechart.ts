@@ -5,17 +5,18 @@ import {getDrawArea} from './render_utils';
 
 /**
  * Renders a line chart
+ *
  * @param data Data in the following format
  *  {
- *    values: [ [x: number, y: number, ...], ... ]
  *    // A nested array of objects each with an x and y property,
  *    // one per series.
  *    // If you only have one series to render you can just pass an array
  *    // of objects with x, y properties
+ *    values: {x: number, y: number}[][]
  *
- *    series: [ string, ...]
  *    // An array of strings with the names of each series passed above.
  *    // Optional
+ *    series: string[]
  *  }
  * @param container An HTMLElement in which to draw the chart
  * @param opts optional parameters
@@ -27,14 +28,14 @@ import {getDrawArea} from './render_utils';
 export async function renderLinechart(
     data: {values: XYVal[][]|XYVal[], series?: string[]}, container: Drawable,
     opts: VisOptions = {}): Promise<void> {
-  let _values = data.values;
+  let inputArray = data.values;
   const _series = data.series == null ? [] : data.series;
 
   // Nest data if necessary before further processing
-  _values =
-      Array.isArray(_values[0]) ? _values as XYVal[][] : [_values] as XYVal[][];
+  inputArray = Array.isArray(inputArray[0]) ? inputArray as XYVal[][] :
+                                              [inputArray] as XYVal[][];
 
-  const values = _values.reduce((memo, seriesData, i) => {
+  const values = inputArray.reduce((memo, seriesData, i) => {
     const seriesName: string =
         _series[i] != null ? _series[i] : `Series ${i + 1}`;
     const seriesVals =
