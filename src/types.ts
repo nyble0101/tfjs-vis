@@ -181,6 +181,6 @@ export interface ConfusionMatrixData {
 /**
  * Datum format for scatter and line plots
  */
-export type XYVal = {
+export type Point2D = {
   x: number; y: number;
 };
