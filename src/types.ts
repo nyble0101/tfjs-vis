@@ -167,8 +167,8 @@ export type Point2D = {
  */
 export interface HeatmapData {
   values: number[][]|Tensor2D;
-  xLabels?: string[];
-  yLabels?: string[];
+  xTickLabels?: string[];
+  yTickLabels?: string[];
 }
 
 /**
